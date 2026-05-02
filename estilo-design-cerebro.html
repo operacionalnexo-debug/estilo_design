@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cérebro de Público — Estilo Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --surface: #0d1120;
+    --surface2: #111829;
+    --border: #1e2a42;
+    --border2: #243050;
+    --blue: #1e6fff;
+    --blue-bright: #4d8fff;
+    --blue-dim: #1a4a9e;
+    --blue-glow: rgba(30,111,255,0.12);
+    --blue-subtle: rgba(30,111,255,0.06);
+    --orange: #ff6b1a;
+    --orange-bright: #ff8c4a;
+    --orange-dim: #b84a0e;
+    --orange-glow: rgba(255,107,26,0.12);
+    --orange-subtle: rgba(255,107,26,0.06);
+    --white: #9aaac8;
+    --white-dim: #6a7a96;
+    --text: #7a8daa;
+    --text-dim: #3a4a62;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 0%, rgba(30,111,255,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 35% at 85% 100%, rgba(255,107,26,0.07) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(30,111,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,111,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+
+  header { margin-bottom: 64px; }
+
+  .header-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .label-top {
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--blue-dim);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .label-top::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--blue);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 9vw, 108px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+  }
+
+  h1 span { color: var(--orange); display: block; }
+
+  .header-meta { text-align: right; padding-bottom: 8px; }
+  .header-meta p {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+  .header-meta strong { color: var(--blue-bright); display: block; font-size: 11px; }
+
+  .header-line {
+    height: 1px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 40%, transparent 100%);
+    margin-top: 32px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+  }
+
+  .tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transition: transform 0.18s;
+  }
+
+  .tab:hover { border-color: var(--border2); color: var(--white-dim); }
+  .tab:hover::after { transform: scaleX(1); }
+  .tab.active { border-color: var(--blue); color: var(--blue-bright); background: var(--blue-subtle); }
+  .tab.active::after { transform: scaleX(1); background: var(--blue); }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeUp 0.28s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+
+  .section-title em { font-style: normal; color: var(--orange); }
+
+  .section-desc {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  .personas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .persona-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 30px 26px 26px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .persona-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+  .persona-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .persona-card.a::before { background: linear-gradient(90deg, var(--blue), var(--blue-bright)); }
+  .persona-card.b::before { background: linear-gradient(90deg, var(--orange), var(--orange-bright)); }
+  .persona-card.c::before { background: linear-gradient(90deg, var(--blue-dim), var(--orange)); }
+
+  .persona-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .persona-card.a .persona-letter { color: var(--blue); }
+  .persona-card.b .persona-letter { color: var(--orange); }
+  .persona-card.c .persona-letter {
+    background: linear-gradient(135deg, var(--blue-bright), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .persona-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .persona-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+
+  .tag {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--border2);
+    color: var(--text-dim);
+  }
+
+  .persona-aspiration {
+    font-size: 13px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--white-dim);
+    line-height: 1.6;
+    border-left: 3px solid var(--border2);
+    padding-left: 14px;
+  }
+
+  .persona-card.a .persona-aspiration { border-left-color: var(--blue-dim); }
+  .persona-card.b .persona-aspiration { border-left-color: var(--orange-dim); }
+
+  .row-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 26px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .row-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--blue) 0%, var(--orange) 100%);
+  }
+
+  .row-block-title {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 18px;
+    padding-left: 3px;
+  }
+
+  .icp-table { width: 100%; border-collapse: collapse; }
+  .icp-table tr { border-bottom: 1px solid var(--border); }
+  .icp-table tr:last-child { border-bottom: none; }
+  .icp-table tr:hover td { background: rgba(30,111,255,0.03); }
+  .icp-table td { padding: 13px 10px; font-size: 12px; vertical-align: top; }
+  .icp-table td:first-child {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    width: 28%;
+    padding-right: 20px;
+  }
+  .icp-table td:last-child { color: var(--white); font-weight: 400; }
+
+  .item-list { list-style: none; }
+  .item-list li {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text);
+    align-items: flex-start;
+  }
+  .item-list li:last-child { border-bottom: none; }
+
+  .bullet {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    margin-top: 1px;
+    font-size: 9px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bullet.pain { background: rgba(255,107,26,0.1); color: var(--orange); border: 1px solid rgba(255,107,26,0.3); }
+  .bullet.desire { background: rgba(30,111,255,0.12); color: var(--blue-bright); border: 1px solid rgba(30,111,255,0.3); }
+
+  .objection-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--orange-dim);
+    padding: 22px 22px 22px 24px;
+    margin-bottom: 10px;
+    transition: border-left-color 0.2s;
+  }
+  .objection-card:hover { border-left-color: var(--orange); }
+
+  .objection-text {
+    font-size: 17px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .objection-real {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .objection-kill {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+
+  .word-cloud { display: flex; flex-wrap: wrap; gap: 8px; padding: 18px 0; }
+
+  .word-tag {
+    padding: 7px 16px;
+    border: 1px solid var(--border);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    transition: all 0.18s;
+    text-transform: uppercase;
+  }
+
+  .word-tag.primary {
+    border-color: var(--blue-dim);
+    color: var(--blue-bright);
+    background: var(--blue-subtle);
+    font-size: 11px;
+    padding: 9px 18px;
+  }
+
+  .word-tag:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-subtle); }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+  }
+
+  .content-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 22px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .content-card:hover { border-color: var(--blue-dim); transform: translateY(-2px); }
+
+  .content-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--orange);
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+
+  .content-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .content-desc { font-size: 11px; font-weight: 400; color: var(--text-dim); line-height: 1.7; }
+
+  .flow-steps { display: flex; flex-direction: column; }
+
+  .flow-step {
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .flow-step:last-child { border-bottom: none; }
+
+  .step-day {
+    flex-shrink: 0;
+    width: 56px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--orange);
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .step-action { font-size: 12px; font-weight: 400; color: var(--text); line-height: 1.7; padding-top: 4px; }
+  .step-action strong { color: var(--blue-bright); font-weight: 800; }
+
+  .criteria-item {
+    display: flex;
+    gap: 18px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .criteria-item:last-child { border-bottom: none; }
+
+  .criteria-number {
+    flex-shrink: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--blue-dim);
+    line-height: 1;
+    width: 40px;
+    padding-top: 2px;
+  }
+
+  .criteria-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 5px;
+  }
+
+  .criteria-detail { font-size: 11px; font-weight: 400; color: var(--text-dim); line-height: 1.7; }
+
+  .signal-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .signal-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 22px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .signal-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+  }
+
+  .signal-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--blue-bright), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .signal-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  .secondary-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue-dim);
+    padding: 24px;
+    margin-top: 8px;
+  }
+
+  .secondary-box p { font-size: 12px; font-weight: 400; color: var(--text-dim); line-height: 1.8; }
+
+  .script-box {
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    padding: 24px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 2;
+    color: var(--text);
+  }
+
+  .script-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    color: var(--blue-dim);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .footer-nexo {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  .footer-nexo strong {
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (max-width: 600px) {
+    .tabs { gap: 4px; }
+    .tab { font-size: 9px; padding: 8px 12px; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .header-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="header-inner">
+      <div>
+        <p class="label-top">Inteligência de Público · Análise Estratégica</p>
+        <h1>CÉREBRO<br><span>DE PÚBLICO</span></h1>
+      </div>
+      <div class="header-meta">
+        <strong>Estilo Design</strong>
+        <p>Móveis Planejados</p>
+        <p>João Pessoa · 2025</p>
+      </div>
+    </div>
+    <div class="header-line"></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" onclick="show('personas', this)">Personas</button>
+    <button class="tab" onclick="show('icp', this)">ICP</button>
+    <button class="tab" onclick="show('dores', this)">Dores & Desejos</button>
+    <button class="tab" onclick="show('objecoes', this)">Objeções</button>
+    <button class="tab" onclick="show('decisao', this)">Critérios</button>
+    <button class="tab" onclick="show('linguagem', this)">Linguagem</button>
+    <button class="tab" onclick="show('conteudo', this)">Estratégia</button>
+  </nav>
+
+  <!-- PERSONAS -->
+  <div id="personas" class="section active">
+    <p class="section-title">TRÊS <em>PERSONAS</em> PRINCIPAIS</p>
+    <p class="section-desc">Representam ~80% das vendas. Cada uma tem uma motivação central diferente — e critérios de compra distintos.</p>
+
+    <div class="personas-grid">
+      <div class="persona-card a">
+        <div class="persona-letter">A</div>
+        <div class="persona-name">O Realizador do Primeiro Apê</div>
+        <div class="persona-sub">Casal jovem · 28–35 anos · imóvel recém-entregue ou na planta</div>
+        <div class="tag-row">
+          <span class="tag">recém-casado</span>
+          <span class="tag">primeiro imóvel</span>
+          <span class="tag">apê compacto</span>
+        </div>
+        <div class="persona-aspiration">"Quero que fique pronto logo e que meus amigos olhem e digam: nossa, que lindo."</div>
+      </div>
+
+      <div class="persona-card b">
+        <div class="persona-letter">B</div>
+        <div class="persona-name">O Pai / Mãe em Expansão</div>
+        <div class="persona-sub">Família consolidada · 35–45 anos · novo bebê ou filhos crescendo</div>
+        <div class="tag-row">
+          <span class="tag">funcionalidade</span>
+          <span class="tag">organização</span>
+          <span class="tag">durabilidade</span>
+        </div>
+        <div class="persona-aspiration">"Não aguento mais a bagunça visual. Preciso de um lugar pra cada coisa."</div>
+      </div>
+
+      <div class="persona-card c">
+        <div class="persona-letter">C</div>
+        <div class="persona-name">O Upgrade de Conforto</div>
+        <div class="persona-sub">Solteiro/a ou divorciado/a · carreira estável · cansou de improvisar</div>
+        <div class="tag-row">
+          <span class="tag">estética</span>
+          <span class="tag">status</span>
+          <span class="tag">design premium</span>
+        </div>
+        <div class="persona-aspiration">"Quero um ambiente que reflita quem eu sou. Efeito UAU. Nada genérico."</div>
+      </div>
+    </div>
+
+    <div class="secondary-box">
+      <div class="row-block-title" style="margin-bottom:10px">Grupo Secundário — Ruído + Oportunidade</div>
+      <p>Leads mais sensíveis a preço que entram no funil mas não fecham o ticket principal. Podem virar oportunidade com consultoria de interiores ou móveis avulsos como produto de entrada — ou devem ser filtrados antes de consumir energia do comercial.</p>
+    </div>
+  </div>
+
+  <!-- ICP -->
+  <div id="icp" class="section">
+    <p class="section-title">PERFIL DO <em>CLIENTE IDEAL</em></p>
+    <p class="section-desc">Quem fecha, não questiona demais o preço e ainda indica outros. Mapeado direto das conversas e projetos reais da Estilo Design.</p>
+
+    <div class="row-block">
+      <div class="row-block-title">Atributos do ICP</div>
+      <table class="icp-table">
+        <tr><td>Idade</td><td>28 a 45 anos</td></tr>
+        <tr><td>Profissão</td><td>Profissionais liberais (médicos, advogados), gestores, concursados, investidores imobiliários</td></tr>
+        <tr><td>Renda familiar</td><td>R$ 8.000 a R$ 15.000+. Foco na capacidade de parcelamento, não apenas na renda bruta.</td></tr>
+        <tr><td>Moradia</td><td>Apartamentos de 50m² a 90m² em bairros em valorização. Compradores de flats, imóveis na planta ou recém-entregues.</td></tr>
+        <tr><td>Comportamento</td><td>Pesquisa no Instagram e Pinterest antes de entrar em contato. Já chega com referência visual. Valoriza atendimento consultivo.</td></tr>
+        <tr><td>Critério de compra</td><td>Confiança no vendedor + ver o projeto 3D + provas sociais de outros clientes.</td></tr>
+        <tr><td>Sinal real de tração</td><td>Fecha 6 apartamentos no mesmo prédio por indicação. Paga R$ 70k sem barganhar. Liga para a Marília diretamente.</td></tr>
+      </table>
+    </div>
+
+    <div class="signal-row">
+      <div class="signal-card">
+        <div class="signal-number">R$17k</div>
+        <div class="signal-label">Ticket médio principal</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-number">R$70k</div>
+        <div class="signal-label">Maior projeto sem desconto</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-number">6</div>
+        <div class="signal-label">Apês fechados em um prédio</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-number">R$100k</div>
+        <div class="signal-label">Meta mensal de faturamento</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DORES E DESEJOS -->
+  <div id="dores" class="section">
+    <p class="section-title">DORES & <em>DESEJOS</em></p>
+    <p class="section-desc">O que mantém o cliente acordado — e o que ele realmente está comprando quando fecha com a Estilo Design.</p>
+
+    <div class="row-block">
+      <div class="row-block-title">Dores — o que tira o sono</div>
+      <ul class="item-list">
+        <li><span class="bullet pain">✕</span>Medo de contratar marceneiro informal que some com o dinheiro ou entrega acabamento grosseiro</li>
+        <li><span class="bullet pain">✕</span>Trauma de obra que nunca acaba — prazo prometido vs prazo real</li>
+        <li><span class="bullet pain">✕</span>Investir R$17k e o ambiente não ficar "com cara de revista". Medo de decepção estética.</li>
+        <li><span class="bullet pain">✕</span>Ser abandonado após o pagamento. Pânico de pós-venda inexistente.</li>
+        <li><span class="bullet pain">✕</span>Apartamento novo mas sem espaço — "nada tem seu lugar"</li>
+        <li><span class="bullet pain">✕</span>Ver 3D incrível na apresentação e receber resultado inferior na entrega</li>
+        <li><span class="bullet pain">✕</span>Não conseguir justificar para o cônjuge o investimento de R$17k</li>
+        <li><span class="bullet pain">✕</span>Parcelar no cartão quando a concorrência oferece boleto bancário</li>
+      </ul>
+    </div>
+
+    <div class="row-block" style="margin-top:12px">
+      <div class="row-block-title">Desejos — o que realmente compram</div>
+      <ul class="item-list">
+        <li><span class="bullet desire">✓</span>Certeza de que não serão enganados. Compram <strong>segurança</strong>, não apenas móvel.</li>
+        <li><span class="bullet desire">✓</span>Ambiente que impressiona quem visita. Aprovação social implícita.</li>
+        <li><span class="bullet desire">✓</span>Alguém que entende a dinâmica da família — não apenas o projeto, mas a vida dentro dele</li>
+        <li><span class="bullet desire">✓</span>Funcionalidade real: gaveta que não bate, closet que antes "era impossível"</li>
+        <li><span class="bullet desire">✓</span>Projeto que cabe no bolso sem parecer barato</li>
+        <li><span class="bullet desire">✓</span>Provas de que outros já compraram e aprovaram — depoimentos, antes/depois</li>
+        <li><span class="bullet desire">✓</span>Um casal/equipe que acompanha tudo do início ao último parafuso</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- OBJEÇÕES -->
+  <div id="objecoes" class="section">
+    <p class="section-title">OBJEÇÕES & <em>COMO MATAR</em></p>
+    <p class="section-desc">O que o cliente diz em voz alta — e o que está pensando por baixo.</p>
+
+    <div class="objection-card">
+      <div class="objection-text">"Está caro, o marceneiro faz por 12k."</div>
+      <div class="objection-real">→ REAL: "Não vi diferença que justifique pagar 5k a mais."</div>
+      <div class="objection-kill">Mostrar a corrediça telescópica, a espessura do MDF 18mm e a garantia de fábrica. Comparar custo por ano de uso. Mostrar o que acontece quando a corrediça barata quebra.</div>
+    </div>
+
+    <div class="objection-card">
+      <div class="objection-text">"Vou pensar e te falo."</div>
+      <div class="objection-real">→ REAL: "Gostei, mas tenho medo do prazo atrasar minha mudança."</div>
+      <div class="objection-kill">Oferecer cronograma detalhado com datas. Falar sobre o acompanhamento diário. Mostrar o case do flat entregue em 22 dias úteis.</div>
+    </div>
+
+    <div class="objection-card">
+      <div class="objection-text">"Preciso falar com meu cônjuge."</div>
+      <div class="objection-real">→ REAL: "Não estou seguro o suficiente para defender esse gasto em casa."</div>
+      <div class="objection-kill">Agendar apresentação com os dois presentes ou enviar vídeo do projeto 3D renderizado. Nunca mandar só PDF pelo WhatsApp.</div>
+    </div>
+
+    <div class="objection-card">
+      <div class="objection-text">"O prazo de entrega é muito longo."</div>
+      <div class="objection-real">→ REAL: "Vou ficar vivendo em caixas por 45 dias?"</div>
+      <div class="objection-kill">Vender o benefício da montagem limpa e organizada. Mostrar fotos da montagem. Reforçar o acompanhamento diário do João Paulo na obra.</div>
+    </div>
+
+    <div class="objection-card">
+      <div class="objection-text">"Vou pesquisar outras opções."</div>
+      <div class="objection-real">→ REAL: "Ainda não tenho prova suficiente de que vocês são os melhores."</div>
+      <div class="objection-kill">Acionar depoimento em vídeo de cliente similar. Mostrar projeto do mesmo perfil finalizado. Usar o case do prédio com 6 apartamentos fechados.</div>
+    </div>
+  </div>
+
+  <!-- CRITÉRIOS -->
+  <div id="decisao" class="section">
+    <p class="section-title">CRITÉRIOS DE <em>DECISÃO</em></p>
+    <p class="section-desc">O que passa pela cabeça antes de assinar. Nesta ordem exata.</p>
+
+    <div class="row-block">
+      <div class="criteria-item">
+        <div class="criteria-number">01</div>
+        <div>
+          <div class="criteria-name">Prova Social</div>
+          <div class="criteria-detail">Fotos reais, depoimentos em vídeo, antes e depois de projetos similares. O cliente quer se ver no resultado de outro cliente. Destaques mal organizados no Instagram são perda direta de conversão.</div>
+        </div>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-number">02</div>
+        <div>
+          <div class="criteria-name">Atendimento Consultivo</div>
+          <div class="criteria-detail">O vendedor agiu como designer ou apenas tirou pedido? Quem paga R$17k quer sugestão de cor, ferragem e layout. A Marília é o ativo estratégico central nesse ponto.</div>
+        </div>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-number">03</div>
+        <div>
+          <div class="criteria-name">Ver o Projeto 3D</div>
+          <div class="criteria-detail">O cliente precisa "se ver" no ambiente. Render + foto do entregue provam que o prometido é o entregue. Nunca mandar só PDF — apresentar em vídeo chamada.</div>
+        </div>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-number">04</div>
+        <div>
+          <div class="criteria-name">Clareza de Prazo e Processo</div>
+          <div class="criteria-detail">O cliente quer saber exatamente quando vai morar. Cronograma detalhado reduz a objeção de prazo e transmite profissionalismo.</div>
+        </div>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-number">05</div>
+        <div>
+          <div class="criteria-name">Percepção de Pós-Venda</div>
+          <div class="criteria-detail">Ticket de R$17k gera pânico de abandono pós-pagamento. Reforçar o acompanhamento da corrediça ao último parafuso é diferencial de fechamento, não detalhe.</div>
+        </div>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-number">06</div>
+        <div>
+          <div class="criteria-name">Forma de Pagamento</div>
+          <div class="criteria-detail">Já perderam 3–4 clientes por falta de boleto bancário. Parcelamento via cartão funciona, mas boleto trava menos na decisão. Ponto de atenção crítico.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINGUAGEM -->
+  <div id="linguagem" class="section">
+    <p class="section-title">LINGUAGEM <em>DO PÚBLICO</em></p>
+    <p class="section-desc">As palavras que o cliente usa — e as que convertem na comunicação da marca.</p>
+
+    <div class="row-block">
+      <div class="row-block-title">O que o cliente fala (linguagem deles)</div>
+      <div class="word-cloud">
+        <span class="word-tag primary">ficou muito bonito</span>
+        <span class="word-tag primary">pronto logo</span>
+        <span class="word-tag primary">cabe no orçamento</span>
+        <span class="word-tag primary">vai ficar como no 3D?</span>
+        <span class="word-tag">cara de revista</span>
+        <span class="word-tag">funcional mesmo</span>
+        <span class="word-tag">preciso falar com minha esposa</span>
+        <span class="word-tag">marceneiro sumiu</span>
+        <span class="word-tag">muito tempo de espera</span>
+        <span class="word-tag">quero impressionar</span>
+        <span class="word-tag">não sei se tem espaço</span>
+        <span class="word-tag">tá caro</span>
+        <span class="word-tag">antes e depois</span>
+        <span class="word-tag">me indicaram</span>
+        <span class="word-tag">você viu no Instagram?</span>
+      </div>
+    </div>
+
+    <div class="row-block" style="margin-top:12px">
+      <div class="row-block-title">Como a Estilo Design deve falar (linguagem que converte)</div>
+      <div class="word-cloud">
+        <span class="word-tag primary">estação gastronômica</span>
+        <span class="word-tag primary">solução de ambiente</span>
+        <span class="word-tag primary">acompanhamento completo</span>
+        <span class="word-tag primary">para os próximos 15 anos da sua família</span>
+        <span class="word-tag">produção própria, do zero</span>
+        <span class="word-tag">MDF 18mm premium</span>
+        <span class="word-tag">amortecimento em todas as gavetas</span>
+        <span class="word-tag">montagem limpa</span>
+        <span class="word-tag">garantia de fábrica</span>
+        <span class="word-tag">entregamos o que projetamos</span>
+        <span class="word-tag">cronograma detalhado</span>
+        <span class="word-tag">clientes que voltam pela família inteira</span>
+      </div>
+    </div>
+
+    <div class="row-block" style="margin-top:12px">
+      <div class="row-block-title" style="color:var(--orange)">Palavras que afastam — evitar</div>
+      <div class="word-cloud">
+        <span class="word-tag" style="color:var(--orange);border-color:rgba(255,107,26,0.3)">fábrica</span>
+        <span class="word-tag" style="color:var(--orange);border-color:rgba(255,107,26,0.3)">alto padrão (sem entregar)</span>
+        <span class="word-tag" style="color:var(--orange);border-color:rgba(255,107,26,0.3)">preço no Instagram</span>
+        <span class="word-tag" style="color:var(--orange);border-color:rgba(255,107,26,0.3)">conteúdo de engajamento vazio</span>
+        <span class="word-tag" style="color:var(--orange);border-color:rgba(255,107,26,0.3)">igual ao concorrente</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTRATÉGIA -->
+  <div id="conteudo" class="section">
+    <p class="section-title">ESTRATÉGIA DE <em>CONTEÚDO</em></p>
+    <p class="section-desc">O que produzir, como abordar e como fazer o lead andar no funil até o fechamento.</p>
+
+    <div class="row-block">
+      <div class="row-block-title">Tipos de conteúdo que convertem para esse público</div>
+      <div class="content-grid">
+        <div class="content-card">
+          <div class="content-icon">01</div>
+          <div class="content-title">Antes & Depois Real</div>
+          <div class="content-desc">O formato que mais vende. Contraste visual entre o vazio e o planejado. Fotos de qualidade com depoimento do cliente ao final.</div>
+        </div>
+        <div class="content-card">
+          <div class="content-icon">02</div>
+          <div class="content-title">Projeto 3D vs. Entrega</div>
+          <div class="content-desc">Render ao lado da foto real entregue. Elimina diretamente a objeção "vai ficar como no 3D?".</div>
+        </div>
+        <div class="content-card">
+          <div class="content-icon">03</div>
+          <div class="content-title">Detalhe Premium</div>
+          <div class="content-desc">Ferragem com amortecimento, divisórias, acabamento interno. Justifica o ticket e educa o cliente sobre o diferencial.</div>
+        </div>
+        <div class="content-card">
+          <div class="content-icon">04</div>
+          <div class="content-title">Marília Falando</div>
+          <div class="content-desc">Ela é o ativo estratégico. Vídeos dela explicando o processo ou mostrando uma obra têm engajamento muito acima da média.</div>
+        </div>
+        <div class="content-card">
+          <div class="content-icon">05</div>
+          <div class="content-title">Depoimento em Vídeo</div>
+          <div class="content-desc">Cliente real falando. Visitar 3 clientes próximos e gravar em um dia. Nada converte mais no ticket de R$17k.</div>
+        </div>
+        <div class="content-card">
+          <div class="content-icon">06</div>
+          <div class="content-title">Dicas de Aproveitamento</div>
+          <div class="content-desc">"3 formas de ganhar espaço em cozinhas pequenas." Atrai quem sofre com a planta. Educa e aquece antes de pedir orçamento.</div>
+        </div>
+        <div class="content-card">
+          <div class="content-icon">07</div>
+          <div class="content-title">Bastidores com o Marceneiro</div>
+          <div class="content-desc">Ouro de engajamento. Gera confiança e alcance orgânico. Complementar com CTA de conversão.</div>
+        </div>
+        <div class="content-card">
+          <div class="content-icon">08</div>
+          <div class="content-title">Case Flat / Prédio Inteiro</div>
+          <div class="content-desc">6 apartamentos no mesmo prédio é prova social de escala. Atrai investidores e compradores de lançamentos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-block" style="margin-top:12px">
+      <div class="row-block-title">Fluxo de follow-up após envio de orçamento</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-day">D+1</div>
+          <div class="step-action">Envio do projeto + orçamento. <strong>Nunca só PDF.</strong> Ligar ou fazer vídeo chamada para explicar. Áudio de 30s no WhatsApp depois.</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-day">D+2</div>
+          <div class="step-action">Enviar vídeo de uma montagem finalizada com acabamento similar. <strong>"Vi esse projeto que finalizamos hoje — é o padrão que propomos para você."</strong></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-day">D+4</div>
+          <div class="step-action">Pergunta técnica específica: <strong>"Ficou alguma dúvida sobre as ferragens ou o prazo de montagem?"</strong> Atenção, não pressão.</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-day">D+7</div>
+          <div class="step-action">Condição especial: <strong>"Para assinatura até sexta, consigo chegar em R$16.500 à vista — ou parcelamos em [X]x."</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-block" style="margin-top:12px">
+      <div class="row-block-title">Script de qualificação — primeiro contato</div>
+      <div class="script-box">
+        <div class="script-label">Template — adaptar ao tom natural da marca</div>
+        <p>"Oi, [Nome]! Aqui é [Nome] da Estilo Design. Vi que você se interessou em transformar seu ambiente conosco — que satisfação!</p>
+        <br>
+        <p>Para te dar uma estimativa precisa, me conta dois detalhes rápidos:</p>
+        <p>1. Você já está com as chaves ou a planta em mãos?</p>
+        <p>2. Qual ambiente é prioridade agora? (cozinha, dormitório, apê completo...)</p>
+        <br>
+        <p>Como trabalhamos com produção própria e montagem acompanhada, gosto de ver cada detalhe antes de propor qualquer coisa. Você teria 5 minutinhos para uma ligação rápida ou prefere que eu te mande fotos de projetos parecidos primeiro?"</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-label">Estilo Design · Cérebro de Público · Compilado de transcrição, diagnóstico e mapeamento estratégico</p>
+    <p class="footer-nexo">Desenvolvido por <strong>Nexo Estratégia</strong></p>
+    <p class="footer-badge">ESTILO DESIGN</p>
+  </footer>
+
+</div>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
