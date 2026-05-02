@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Área Estratégica — Estilo Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --surface: #0c1018;
+    --surface2: #111620;
+    --border: #1a2236;
+    --border2: #1f2a40;
+    --blue: #1e6fff;
+    --blue-bright: #4d8fff;
+    --blue-dim: #142d6e;
+    --blue-subtle: rgba(30,111,255,0.07);
+    --orange: #ff6b1a;
+    --orange-bright: #ff8c4a;
+    --orange-dim: #8c3a0c;
+    --orange-subtle: rgba(255,107,26,0.07);
+    --white: #8fa0bf;
+    --white-dim: #5a6a85;
+    --text: #6a7a96;
+    --text-dim: #323d52;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* bg layers */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 0% 0%, rgba(30,111,255,0.09) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 100% 100%, rgba(255,107,26,0.07) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(30,111,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,111,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .page {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(7,9,15,0.8);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .topbar-left {
+    display: flex; align-items: center; gap: 16px;
+  }
+
+  .topbar-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 0.1em;
+    background: linear-gradient(90deg, var(--blue-bright), var(--orange));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .topbar-sep { width: 1px; height: 20px; background: var(--border2); }
+
+  .topbar-title {
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .topbar-right {
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 6px var(--blue);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 40px 56px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--blue-dim);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block; width: 20px; height: 2px;
+    background: var(--blue);
+  }
+
+  .hero-h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.88; letter-spacing: 0.02em;
+    color: var(--white);
+  }
+
+  .hero-h1 .line-orange { color: var(--orange); display: block; }
+  .hero-h1 .line-blue { color: var(--blue); display: block; }
+
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 12px; font-weight: 400;
+    color: var(--text-dim);
+    line-height: 1.7; max-width: 480px;
+  }
+
+  .hero-meta {
+    text-align: right;
+    padding-bottom: 4px;
+  }
+
+  .hero-meta-label {
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-dim); line-height: 2;
+  }
+
+  .hero-meta-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px; letter-spacing: 0.1em;
+    color: var(--blue-bright);
+  }
+
+  .hero-rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--blue), var(--orange) 40%, transparent 80%);
+    margin-top: 32px; grid-column: 1/-1;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    flex: 1;
+    padding: 48px 40px 80px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* ── MATERIAL CARD ── */
+  .mat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .mat-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+  }
+
+  .mat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    transition: opacity 0.2s;
+  }
+
+  .mat-card.tipo-azul::before { background: linear-gradient(90deg, var(--blue-dim), var(--blue-bright)); }
+  .mat-card.tipo-orange::before { background: linear-gradient(90deg, var(--orange-dim), var(--orange-bright)); }
+  .mat-card.tipo-mixed::before { background: linear-gradient(90deg, var(--blue), var(--orange)); }
+
+  .mat-card:hover::before { opacity: 1; }
+
+  /* card glow on hover */
+  .mat-card.tipo-azul:hover { border-color: var(--blue-dim); box-shadow: 0 0 32px rgba(30,111,255,0.06); }
+  .mat-card.tipo-orange:hover { border-color: var(--orange-dim); box-shadow: 0 0 32px rgba(255,107,26,0.06); }
+  .mat-card.tipo-mixed:hover { box-shadow: 0 0 32px rgba(30,111,255,0.06); }
+
+  .mat-thumb {
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mat-thumb-bg {
+    position: absolute; inset: 0;
+  }
+
+  .tipo-azul .mat-thumb-bg { background: radial-gradient(ellipse at 30% 40%, rgba(30,111,255,0.15) 0%, transparent 65%), var(--surface2); }
+  .tipo-orange .mat-thumb-bg { background: radial-gradient(ellipse at 70% 60%, rgba(255,107,26,0.15) 0%, transparent 65%), var(--surface2); }
+  .tipo-mixed .mat-thumb-bg { background: radial-gradient(ellipse at 30% 40%, rgba(30,111,255,0.1) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, rgba(255,107,26,0.1) 0%, transparent 50%), var(--surface2); }
+
+  .mat-thumb-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .mat-thumb-icon {
+    position: relative; z-index: 1;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px; line-height: 1;
+    letter-spacing: 0.02em;
+    opacity: 0.15;
+  }
+
+  .tipo-azul .mat-thumb-icon { color: var(--blue-bright); }
+  .tipo-orange .mat-thumb-icon { color: var(--orange-bright); }
+  .tipo-mixed .mat-thumb-icon {
+    background: linear-gradient(135deg, var(--blue-bright), var(--orange));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    opacity: 0.2;
+  }
+
+  .mat-thumb-tag {
+    position: absolute; bottom: 12px; left: 12px; z-index: 2;
+    font-size: 8px; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
+    backdrop-filter: blur(8px);
+  }
+
+  .tipo-azul .mat-thumb-tag { border-color: rgba(30,111,255,0.4); color: var(--blue-bright); background: rgba(30,111,255,0.1); }
+  .tipo-orange .mat-thumb-tag { border-color: rgba(255,107,26,0.4); color: var(--orange-bright); background: rgba(255,107,26,0.1); }
+  .tipo-mixed .mat-thumb-tag { border-color: rgba(30,111,255,0.3); color: var(--blue-bright); background: rgba(7,9,15,0.5); }
+
+  .mat-thumb-arrow {
+    position: absolute; bottom: 12px; right: 12px; z-index: 2;
+    width: 28px; height: 28px;
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--text-dim);
+    background: rgba(7,9,15,0.6);
+    backdrop-filter: blur(8px);
+    transition: all 0.2s;
+  }
+
+  .mat-card:hover .mat-thumb-arrow {
+    border-color: var(--border);
+    color: var(--white);
+  }
+
+  .tipo-azul .mat-card:hover .mat-thumb-arrow { border-color: var(--blue-dim); color: var(--blue-bright); }
+  .tipo-orange .mat-card:hover .mat-thumb-arrow { border-color: var(--orange-dim); color: var(--orange-bright); }
+
+  .mat-body { padding: 22px; flex: 1; }
+
+  .mat-kicker {
+    font-size: 8px; font-weight: 800;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .tipo-azul .mat-kicker { color: var(--blue-dim); }
+  .tipo-orange .mat-kicker { color: var(--orange-dim); }
+  .tipo-mixed .mat-kicker { color: var(--blue-dim); }
+
+  .mat-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; line-height: 1.05;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .mat-desc {
+    font-size: 11px; font-weight: 400;
+    color: var(--text-dim); line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .mat-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .mat-tag {
+    font-size: 8px; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--border2);
+    color: var(--text-dim);
+  }
+
+  .mat-footer {
+    border-top: 1px solid var(--border);
+    padding: 14px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .mat-footer-label {
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .mat-footer-cta {
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .tipo-azul .mat-footer-cta { color: var(--blue-dim); }
+  .tipo-orange .mat-footer-cta { color: var(--orange-dim); }
+  .tipo-mixed .mat-footer-cta { color: var(--blue-dim); }
+
+  .mat-card:hover .mat-footer-cta { color: var(--white-dim); }
+  .tipo-azul .mat-card:hover .mat-footer-cta { color: var(--blue-bright); }
+  .tipo-orange .mat-card:hover .mat-footer-cta { color: var(--orange-bright); }
+
+  .mat-footer-cta::after { content: '→'; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    background: rgba(7,9,15,0.6);
+    backdrop-filter: blur(12px);
+  }
+
+  .pf-left { font-size: 9px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); line-height: 1.7; }
+
+  .pf-nexo { font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+  .pf-nexo strong { background: linear-gradient(90deg, var(--blue), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .pf-badge { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.1em; background: linear-gradient(90deg, var(--blue), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  @media (max-width: 900px) {
+    .main { grid-template-columns: 1fr 1fr 1fr; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-meta { text-align: left; }
+    .hero-rule { grid-column: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 0 20px; }
+    .hero { padding: 48px 20px 40px; }
+    .main { grid-template-columns: 1fr; padding: 32px 20px 60px; }
+    .page-footer { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <nav class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo">NEXO</span>
+      <div class="topbar-sep"></div>
+      <span class="topbar-title">Área Estratégica</span>
+    </div>
+    <div class="topbar-right">
+      <div class="status-dot"></div>
+      Estilo Design · Acesso Exclusivo
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <p class="hero-eyebrow">Materiais Estratégicos · Estilo Design</p>
+      <h1 class="hero-h1">
+        CENTRAL<br>
+        <span class="line-orange">DE</span>
+        <span class="line-blue">ESTRATÉGIA</span>
+      </h1>
+      <p class="hero-sub">Todos os materiais estratégicos desenvolvidos pela Nexo Estratégia para a Estilo Design em um único lugar — cérebro de público, campanhas, diagnóstico, plano de ação e CRM operacional.</p>
+    </div>
+    <div class="hero-meta">
+      <p class="hero-meta-label">Cliente</p>
+      <p class="hero-meta-val">Estilo Design</p>
+      <p class="hero-meta-label" style="margin-top:12px">Criado por</p>
+      <p class="hero-meta-val" style="color: var(--orange-bright)">Nexo Estratégia</p>
+      <p class="hero-meta-label" style="margin-top:12px">Ciclo</p>
+      <p class="hero-meta-val" style="font-size:11px; color: var(--text-dim)">Maio 2025</p>
+    </div>
+    <div class="hero-rule"></div>
+  </section>
+
+  <!-- CARDS -->
+  <main class="main">
+
+    <!-- 01 — Cérebro de Público -->
+    <a class="mat-card tipo-azul" href="https://operacionalnexo-debug.github.io/estilo_design/estilo-design-cerebro.html" target="_blank">
+      <div class="mat-thumb">
+        <div class="mat-thumb-bg"></div>
+        <div class="mat-thumb-grid"></div>
+        <div class="mat-thumb-icon">01</div>
+        <span class="mat-thumb-tag">Inteligência de Público</span>
+        <div class="mat-thumb-arrow">↗</div>
+      </div>
+      <div class="mat-body">
+        <div class="mat-kicker">Documento Estratégico · 7 seções</div>
+        <div class="mat-title">CÉREBRO DE PÚBLICO</div>
+        <div class="mat-desc">Personas, ICP, dores e desejos, objeções com respostas, critérios de decisão, linguagem do público e estratégia de conteúdo. Base para toda comunicação da Estilo Design.</div>
+        <div class="mat-tags">
+          <span class="mat-tag">Personas</span>
+          <span class="mat-tag">ICP</span>
+          <span class="mat-tag">Objeções</span>
+          <span class="mat-tag">Linguagem</span>
+          <span class="mat-tag">Estratégia</span>
+        </div>
+      </div>
+      <div class="mat-footer">
+        <span class="mat-footer-label">Abrir material</span>
+        <span class="mat-footer-cta">Acessar</span>
+      </div>
+    </a>
+
+    <!-- 02 — Campanhas -->
+    <a class="mat-card tipo-orange" href="https://operacionalnexo-debug.github.io/estilo_design/estilo-design-campanhas.html" target="_blank">
+      <div class="mat-thumb">
+        <div class="mat-thumb-bg"></div>
+        <div class="mat-thumb-grid"></div>
+        <div class="mat-thumb-icon">02</div>
+        <span class="mat-thumb-tag">Estratégia Instagram</span>
+        <div class="mat-thumb-arrow">↗</div>
+      </div>
+      <div class="mat-body">
+        <div class="mat-kicker">3 Campanhas · Maio 2025</div>
+        <div class="mat-title">CAMPANHAS DE MAIO</div>
+        <div class="mat-desc">Estratégia completa das três campanhas de maio — Promocional, Dia das Mães e PVB. Mix de formatos Instagram, distribuição por objetivo e lógica de publicação semana a semana.</div>
+        <div class="mat-tags">
+          <span class="mat-tag">Promocional</span>
+          <span class="mat-tag">Dia das Mães</span>
+          <span class="mat-tag">PVB</span>
+          <span class="mat-tag">Instagram</span>
+          <span class="mat-tag">Calendário</span>
+        </div>
+      </div>
+      <div class="mat-footer">
+        <span class="mat-footer-label">Abrir material</span>
+        <span class="mat-footer-cta">Acessar</span>
+      </div>
+    </a>
+
+    <!-- 03 — CRM -->
+    <a class="mat-card tipo-mixed" href="https://crm-estilo.vercel.app/" target="_blank">
+      <div class="mat-thumb">
+        <div class="mat-thumb-bg"></div>
+        <div class="mat-thumb-grid"></div>
+        <div class="mat-thumb-icon">CRM</div>
+        <span class="mat-thumb-tag">Operacional · Ao Vivo</span>
+        <div class="mat-thumb-arrow">↗</div>
+      </div>
+      <div class="mat-body">
+        <div class="mat-kicker">Sistema Operacional · Acesso Direto</div>
+        <div class="mat-title">CRM ESTILO DESIGN</div>
+        <div class="mat-desc">Central de gestão de leads e clientes. Acompanhe o pipeline comercial, registre contatos, controle follow-ups e monitore o funil de vendas em tempo real.</div>
+        <div class="mat-tags">
+          <span class="mat-tag">Pipeline</span>
+          <span class="mat-tag">Leads</span>
+          <span class="mat-tag">Follow-up</span>
+          <span class="mat-tag">Funil</span>
+          <span class="mat-tag">Ao vivo</span>
+        </div>
+      </div>
+      <div class="mat-footer">
+        <span class="mat-footer-label">Abrir sistema</span>
+        <span class="mat-footer-cta">Acessar</span>
+      </div>
+    </a>
+
+    <!-- 04 — Diagnóstico -->
+    <a class="mat-card tipo-azul" href="https://operacionalnexo-debug.github.io/estilo_design/estilo-design-diagnostico.html" target="_blank">
+      <div class="mat-thumb">
+        <div class="mat-thumb-bg"></div>
+        <div class="mat-thumb-grid"></div>
+        <div class="mat-thumb-icon">04</div>
+        <span class="mat-thumb-tag">Diagnóstico Estrutural</span>
+        <div class="mat-thumb-arrow">↗</div>
+      </div>
+      <div class="mat-body">
+        <div class="mat-kicker">Análise do Negócio · 6 pilares</div>
+        <div class="mat-title">DIAGNÓSTICO DO NEGÓCIO</div>
+        <div class="mat-desc">Mapa completo dos gargalos prioritários — comercial, marketing, produto, operação, gestão e posicionamento. Com veredicto final e o que muda se estruturar.</div>
+        <div class="mat-tags">
+          <span class="mat-tag">Gargalos</span>
+          <span class="mat-tag">Comercial</span>
+          <span class="mat-tag">Marketing</span>
+          <span class="mat-tag">Gestão</span>
+        </div>
+      </div>
+      <div class="mat-footer">
+        <span class="mat-footer-label">Abrir material</span>
+        <span class="mat-footer-cta">Acessar</span>
+      </div>
+    </a>
+
+    <!-- 05 — Plano de Ação -->
+    <a class="mat-card tipo-orange" href="https://operacionalnexo-debug.github.io/estilo_design/estilo-design-plano-acao.html" target="_blank">
+      <div class="mat-thumb">
+        <div class="mat-thumb-bg"></div>
+        <div class="mat-thumb-grid"></div>
+        <div class="mat-thumb-icon">05</div>
+        <span class="mat-thumb-tag">Execução Prioritária</span>
+        <div class="mat-thumb-arrow">↗</div>
+      </div>
+      <div class="mat-body">
+        <div class="mat-kicker">4 Pilares · 11 Ações</div>
+        <div class="mat-title">PLANO DE AÇÃO</div>
+        <div class="mat-desc">O que fazer, em que ordem e com qual objetivo. Estruturação comercial, geração de demanda, produto e gestão — com sequência de execução semana a semana.</div>
+        <div class="mat-tags">
+          <span class="mat-tag">CRM</span>
+          <span class="mat-tag">Follow-up</span>
+          <span class="mat-tag">Parcerias</span>
+          <span class="mat-tag">Escada</span>
+        </div>
+      </div>
+      <div class="mat-footer">
+        <span class="mat-footer-label">Abrir material</span>
+        <span class="mat-footer-cta">Acessar</span>
+      </div>
+    </a>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="pf-left">
+      Central de Estratégia · Estilo Design<br>
+      Uso exclusivo — não compartilhar externamente
+    </div>
+    <div class="pf-nexo">Desenvolvido por <strong>Nexo Estratégia</strong></div>
+    <div class="pf-badge">ESTILO DESIGN</div>
+  </footer>
+
+</div>
+</body>
+</html>

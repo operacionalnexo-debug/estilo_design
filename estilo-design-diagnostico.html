@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico da Estrutura — Estilo Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --surface: #0d1120;
+    --surface2: #111829;
+    --border: #1e2a42;
+    --border2: #243050;
+    --blue: #1e6fff;
+    --blue-bright: #4d8fff;
+    --blue-dim: #1a4a9e;
+    --blue-subtle: rgba(30,111,255,0.06);
+    --orange: #ff6b1a;
+    --orange-bright: #ff8c4a;
+    --orange-dim: #b84a0e;
+    --orange-subtle: rgba(255,107,26,0.06);
+    --red: #ff3a3a;
+    --red-dim: #7a1a1a;
+    --red-subtle: rgba(255,58,58,0.06);
+    --amber: #ffaa1a;
+    --amber-dim: #7a5010;
+    --amber-subtle: rgba(255,170,26,0.06);
+    --green: #1aff8c;
+    --green-dim: #0e6e3e;
+    --green-subtle: rgba(26,255,140,0.05);
+    --white: #9aaac8;
+    --white-dim: #6a7a96;
+    --text: #7a8daa;
+    --text-dim: #3a4a62;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 10% 0%, rgba(30,111,255,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 35% at 90% 100%, rgba(255,107,26,0.06) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(30,111,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,111,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .wrapper { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 56px 24px 100px; }
+
+  /* HEADER */
+  header { margin-bottom: 64px; }
+
+  .header-inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+
+  .eyebrow {
+    font-weight: 800; font-size: 10px; letter-spacing: 0.35em;
+    color: var(--blue-dim); text-transform: uppercase; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before { content: ''; display: inline-block; width: 24px; height: 2px; background: var(--blue); }
+
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(46px, 8vw, 96px); color: var(--white); line-height: 0.88; letter-spacing: 0.02em; }
+  h1 .orange { color: var(--orange); display: block; }
+
+  .header-right { text-align: right; padding-bottom: 6px; }
+  .header-right p { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; line-height: 1.8; }
+  .header-right strong { color: var(--blue-bright); display: block; font-size: 11px; }
+
+  .header-rule { height: 1px; background: linear-gradient(90deg, var(--blue), var(--orange), transparent 80%); margin-top: 28px; }
+
+  /* GARGALOS TOPO */
+  .gargalo-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 48px; }
+
+  .gargalo-card {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 20px; position: relative; overflow: hidden;
+  }
+  .gargalo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .gargalo-card.crit::before { background: var(--red); }
+  .gargalo-card.imp::before { background: var(--orange); }
+  .gargalo-card.strat::before { background: var(--amber); }
+
+  .gargalo-badge {
+    font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 3px 9px; border: 1px solid; display: inline-block; margin-bottom: 12px;
+  }
+  .crit .gargalo-badge { color: var(--red); border-color: rgba(255,58,58,0.3); background: var(--red-subtle); }
+  .imp .gargalo-badge { color: var(--orange-bright); border-color: rgba(255,107,26,0.3); background: var(--orange-subtle); }
+  .strat .gargalo-badge { color: var(--amber); border-color: rgba(255,170,26,0.3); background: var(--amber-subtle); }
+
+  .gargalo-list { list-style: none; }
+  .gargalo-list li { font-size: 11px; font-weight: 400; color: var(--text); line-height: 1.6; padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  .gargalo-list li:last-child { border-bottom: none; }
+  .gargalo-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .crit .gargalo-list li::before { background: var(--red); }
+  .imp .gargalo-list li::before { background: var(--orange); }
+  .strat .gargalo-list li::before { background: var(--amber); }
+
+  /* SECTION */
+  .section-block { margin-bottom: 40px; }
+
+  .section-title-row {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 16px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 40px;
+    color: var(--blue-dim); line-height: 1; flex-shrink: 0; width: 36px;
+  }
+
+  .section-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 28px;
+    color: var(--white); line-height: 1; letter-spacing: 0.03em;
+  }
+
+  .maturity-tag {
+    margin-left: auto; font-size: 9px; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 4px 12px; border: 1px solid; flex-shrink: 0;
+  }
+  .maturity-tag.baixo { color: var(--red); border-color: rgba(255,58,58,0.3); background: var(--red-subtle); }
+  .maturity-tag.medio { color: var(--amber); border-color: rgba(255,170,26,0.3); background: var(--amber-subtle); }
+  .maturity-tag.bom { color: var(--green); border-color: rgba(26,255,140,0.3); background: var(--green-subtle); }
+
+  .diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .diag-card {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 20px; border-left: 3px solid;
+  }
+  .diag-card.situacao { border-left-color: var(--blue-dim); }
+  .diag-card.problemas { border-left-color: var(--orange-dim); }
+
+  .diag-label { font-size: 9px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 14px; }
+  .situacao .diag-label { color: var(--blue-bright); }
+  .problemas .diag-label { color: var(--orange); }
+
+  .diag-list { list-style: none; }
+  .diag-list li {
+    font-size: 11px; font-weight: 400; color: var(--text);
+    line-height: 1.6; padding: 6px 0; border-bottom: 1px solid var(--border);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .diag-list li:last-child { border-bottom: none; }
+
+  .dot-blue::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue-dim); flex-shrink: 0; margin-top: 6px; display: block; }
+  .dot-orange::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--orange-dim); flex-shrink: 0; margin-top: 6px; display: block; }
+
+  /* VEREDICTO FINAL */
+  .veredicto {
+    background: var(--surface); border: 1px solid var(--border2);
+    padding: 32px; margin-top: 48px; position: relative; overflow: hidden;
+  }
+  .veredicto::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--orange)); }
+
+  .veredicto-label { font-size: 9px; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+
+  .veredicto-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--white); margin-bottom: 16px; line-height: 1.05; }
+  .veredicto-title span { color: var(--orange); }
+
+  .veredicto-body { font-size: 12px; font-weight: 400; color: var(--text); line-height: 1.8; }
+  .veredicto-body strong { font-weight: 800; color: var(--blue-bright); }
+
+  .veredicto-states { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+
+  .state-card { background: var(--surface2); border: 1px solid var(--border); padding: 18px; }
+  .state-label { font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
+  .state-card.sem .state-label { color: var(--red); }
+  .state-card.com .state-label { color: var(--green); }
+  .state-list { list-style: none; }
+  .state-list li { font-size: 11px; font-weight: 400; color: var(--text-dim); line-height: 1.6; padding: 4px 0; display: flex; gap: 8px; }
+  .state-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; display: block; }
+  .sem .state-list li::before { background: var(--red-dim); }
+  .com .state-list li::before { background: var(--green-dim); }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 64px; }
+  .footer-label { font-size: 9px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); }
+  .footer-nexo { font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+  .footer-nexo strong { background: linear-gradient(90deg, var(--blue), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .footer-badge { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.1em; background: linear-gradient(90deg, var(--blue), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  @media (max-width: 680px) {
+    .gargalo-row, .diag-grid, .veredicto-states { grid-template-columns: 1fr; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .header-right { text-align: left; }
+    .maturity-tag { margin-left: 0; }
+    .section-title-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">Análise Estrutural · Estilo Design</p>
+        <h1>DIAGNÓSTICO<br><span class="orange">DO NEGÓCIO</span></h1>
+      </div>
+      <div class="header-right">
+        <strong>Estilo Design</strong>
+        <p>Móveis Planejados</p>
+        <p>Nexo Estratégia · 2025</p>
+      </div>
+    </div>
+    <div class="header-rule"></div>
+  </header>
+
+  <!-- MAPA DE GARGALOS -->
+  <div style="margin-bottom: 12px;">
+    <div style="font-size:9px; font-weight:800; letter-spacing:0.3em; text-transform:uppercase; color:var(--text-dim); margin-bottom:14px;">Mapa de Gargalos Prioritários</div>
+    <div class="gargalo-row">
+      <div class="gargalo-card crit">
+        <span class="gargalo-badge">🔴 Críticos — faturamento</span>
+        <ul class="gargalo-list">
+          <li>Falta de processo comercial estruturado</li>
+          <li>Falta de previsibilidade de leads</li>
+          <li>Ausência de CRM e gestão de base</li>
+        </ul>
+      </div>
+      <div class="gargalo-card imp">
+        <span class="gargalo-badge">🟠 Importantes — crescimento</span>
+        <ul class="gargalo-list">
+          <li>Falta de escada de produtos</li>
+          <li>Baixo aproveitamento da audiência atual</li>
+          <li>Dependência excessiva dos sócios</li>
+        </ul>
+      </div>
+      <div class="gargalo-card strat">
+        <span class="gargalo-badge">🟡 Estratégicos — escala</span>
+        <ul class="gargalo-list">
+          <li>Posicionamento pouco explorado</li>
+          <li>Falta de parcerias estruturadas</li>
+          <li>Ausência de indicadores e dados</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. ESTRUTURA COMERCIAL -->
+  <div class="section-block">
+    <div class="section-title-row">
+      <div class="section-num">1</div>
+      <div class="section-name">ESTRUTURA COMERCIAL</div>
+      <span class="maturity-tag baixo">Baixo a intermediário</span>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-card situacao">
+        <div class="diag-label">Situação atual</div>
+        <ul class="diag-list">
+          <li class="dot-blue">Não existe funil comercial estruturado</li>
+          <li class="dot-blue">Atendimento reativo — responde quem chega</li>
+          <li class="dot-blue">Dependência total dos sócios para qualificação, negociação e fechamento</li>
+          <li class="dot-blue">Sem CRM nem histórico organizado de leads</li>
+          <li class="dot-blue">Follow-up inconsistente ou inexistente em escala</li>
+        </ul>
+      </div>
+      <div class="diag-card problemas">
+        <div class="diag-label">Problemas estruturais</div>
+        <ul class="diag-list">
+          <li class="dot-orange">Baixa previsibilidade de receita</li>
+          <li class="dot-orange">Perda de leads por falta de acompanhamento</li>
+          <li class="dot-orange">Tempo consumido com leads desqualificados</li>
+          <li class="dot-orange">Impossibilidade de escalar sem sobrecarregar os sócios</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. MARKETING -->
+  <div class="section-block">
+    <div class="section-title-row">
+      <div class="section-num">2</div>
+      <div class="section-name">MARKETING E GERAÇÃO DE DEMANDA</div>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-card situacao">
+        <div class="diag-label">Situação atual</div>
+        <ul class="diag-list">
+          <li class="dot-blue">Principal canal: Instagram</li>
+          <li class="dot-blue">Tráfego pago rodando sem estratégia contínua clara</li>
+          <li class="dot-blue">Conteúdo sem linha editorial estruturada</li>
+          <li class="dot-blue">Pouco aproveitamento de seguidores, leads antigos e base de contatos</li>
+          <li class="dot-blue">Google já foi usado mas sem consistência</li>
+        </ul>
+      </div>
+      <div class="diag-card problemas">
+        <div class="diag-label">Problemas estruturais</div>
+        <ul class="diag-list">
+          <li class="dot-orange">Dependência de algoritmo — instabilidade de leads</li>
+          <li class="dot-orange">Ausência de múltiplos canais de aquisição</li>
+          <li class="dot-orange">Baixa conversão da audiência existente em oportunidades reais</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. PRODUTO -->
+  <div class="section-block">
+    <div class="section-title-row">
+      <div class="section-num">3</div>
+      <div class="section-name">PRODUTO E OFERTA</div>
+      <span class="maturity-tag medio">Intermediário</span>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-card situacao">
+        <div class="diag-label">Situação atual</div>
+        <ul class="diag-list">
+          <li class="dot-blue">Produto principal: móveis planejados (ticket alto)</li>
+          <li class="dot-blue">Consultoria de interiores já validada como produto complementar</li>
+          <li class="dot-blue">Não existe escada de valor estruturada</li>
+        </ul>
+      </div>
+      <div class="diag-card problemas">
+        <div class="diag-label">Problemas estruturais</div>
+        <ul class="diag-list">
+          <li class="dot-orange">Perda de leads que não conseguem pagar o ticket principal</li>
+          <li class="dot-orange">Falta de alternativas comerciais — sem downsell ou produto de entrada</li>
+          <li class="dot-orange">Falta de previsibilidade de conversão por ausência de etapas intermediárias</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. OPERAÇÃO -->
+  <div class="section-block">
+    <div class="section-title-row">
+      <div class="section-num">4</div>
+      <div class="section-name">OPERAÇÃO E ENTREGA</div>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-card situacao">
+        <div class="diag-label">Situação atual</div>
+        <ul class="diag-list">
+          <li class="dot-blue">Histórico de problemas sérios com equipe, montagem e orçamentos</li>
+          <li class="dot-blue">Hoje há maior controle e aprendizado com os erros passados</li>
+          <li class="dot-blue">Produção depende de estrutura física, fornecedores e equipe</li>
+        </ul>
+      </div>
+      <div class="diag-card problemas">
+        <div class="diag-label">Problemas estruturais</div>
+        <ul class="diag-list">
+          <li class="dot-orange">Operação sensível a erro humano</li>
+          <li class="dot-orange">Dependência de pessoas-chave</li>
+          <li class="dot-orange">Risco financeiro alto com matéria-prima e execução</li>
+          <li class="dot-orange">Gargalo potencial se aumentar volume sem organizar processos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. GESTÃO -->
+  <div class="section-block">
+    <div class="section-title-row">
+      <div class="section-num">5</div>
+      <div class="section-name">GESTÃO E ESTRUTURA EMPRESARIAL</div>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-card situacao">
+        <div class="diag-label">Situação atual</div>
+        <ul class="diag-list">
+          <li class="dot-blue">Gestão muito centralizada nos sócios</li>
+          <li class="dot-blue">Decisões estratégicas e operacionais concentradas</li>
+          <li class="dot-blue">Sem KPIs formais ou indicadores estruturados</li>
+          <li class="dot-blue">Sem divisão clara de papéis com processos documentados</li>
+        </ul>
+      </div>
+      <div class="diag-card problemas">
+        <div class="diag-label">Problemas estruturais</div>
+        <ul class="diag-list">
+          <li class="dot-orange">Negócio não escala sem os sócios presentes</li>
+          <li class="dot-orange">Alto risco de gargalo decisório</li>
+          <li class="dot-orange">Gestão ainda muito intuitiva — sem visão baseada em dados</li>
+          <li class="dot-orange">Dificuldade real de delegação</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. POSICIONAMENTO -->
+  <div class="section-block">
+    <div class="section-title-row">
+      <div class="section-num">6</div>
+      <div class="section-name">POSICIONAMENTO E MARCA</div>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-card situacao">
+        <div class="diag-label">Situação atual</div>
+        <ul class="diag-list">
+          <li class="dot-blue">Marca transmite qualidade e confiança</li>
+          <li class="dot-blue">Forte ativo emocional no atendimento</li>
+          <li class="dot-blue">Marília é diferencial claro — autoridade + conexão</li>
+          <li class="dot-blue">Posicionamento ainda não totalmente estruturado de forma estratégica</li>
+        </ul>
+      </div>
+      <div class="diag-card problemas">
+        <div class="diag-label">Problemas estruturais</div>
+        <ul class="diag-list">
+          <li class="dot-orange">Comunicação não traduz todo o valor entregue</li>
+          <li class="dot-orange">Marca pessoal da Marília não explorada no máximo potencial</li>
+          <li class="dot-orange">Falta de clareza na diferenciação frente aos concorrentes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- VEREDICTO -->
+  <div class="veredicto">
+    <div class="veredicto-label">Diagnóstico Final</div>
+    <div class="veredicto-title">O PROBLEMA NÃO É<br><span>FALTA DE VENDA</span></div>
+    <div class="veredicto-body">
+      O negócio já provou que <strong>vende, entrega, tem mercado e tem demanda.</strong><br>
+      O problema real é a falta de estrutura para transformar esforço em sistema previsível.
+    </div>
+    <div class="veredicto-states">
+      <div class="state-card sem">
+        <div class="state-label">Se não organizar</div>
+        <ul class="state-list">
+          <li>Vai continuar vendendo</li>
+          <li>Mas sempre com esforço alto</li>
+          <li>Com instabilidade constante</li>
+          <li>E crescimento limitado</li>
+        </ul>
+      </div>
+      <div class="state-card com">
+        <div class="state-label">Se estruturar</div>
+        <ul class="state-list">
+          <li>Potencial real de escalar</li>
+          <li>Com previsibilidade de receita</li>
+          <li>Menos dependência dos sócios</li>
+          <li>Crescimento sustentável</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-label">Diagnóstico da Estrutura do Negócio · Estilo Design · 2025</p>
+    <p class="footer-nexo">Desenvolvido por <strong>Nexo Estratégia</strong></p>
+    <p class="footer-badge">ESTILO DESIGN</p>
+  </footer>
+
+</div>
+</body>
+</html>
